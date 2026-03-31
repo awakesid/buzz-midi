@@ -35,8 +35,8 @@ void printheadervalue(midiheader *head){
 }
 
 int checkcompatability(midiheader *head){
-    if(head->id != MIDIID){
-        printf("Invalid file header ID doesnot match to MThD, id is:", head->id);
+    if(strcmp(head->id, MIDIID) !=0 ){
+        printf("Invalid file header ID doesnot match to MThd, id is: %s", head->id);
         return 1;
     }
     
@@ -46,11 +46,12 @@ int checkcompatability(midiheader *head){
     }
 
     else if(head->tracks > 1){
-        printf("The number of tracks is more than one, number of tracks is",head->tracks);
+        printf("The number of tracks is more than one, number of tracks is %d",head->tracks);
         return 1;
     }
 
     else{
+        printf("Compatible");
         return 0;
     }
 

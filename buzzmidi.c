@@ -28,6 +28,10 @@ int main(int argc, char*argv[]){
         return 1;
     }
 	getheaderinfo(&header, ptr);
+	printheadervalue(&header);
+	checkcompatability(&header);
+
+
     
 
 

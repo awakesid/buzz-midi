@@ -13,31 +13,24 @@ typedef enum{
 
 ParsingState pstate;
 
-
 int main(int argc, char*argv[]){
 
-midiheader header;
-	
-    if(argc!=2){ // argument check
+	if(argc!=2){ // argument check
         printf("Usage is: midiparser filename");
     return 1;
     }
 
-    FILE *ptr=fopen(argv[1],"r");
-
-
-    if(ptr==NULL){ //file check
+	midiheader header;
+	FILE *ptr=fopen(argv[1],"r");
+	
+	if(ptr==NULL){ //file check
         printf("Invalid File");
         return 1;
     }
+	getheaderinfo(&header, ptr);
+    
 
-getheaderinfo(&header, ptr);
 
-printf("the head is %s\n",header.id);
-printf("the length is %d\n",header.length);
-printf("the format is %d\n",header.format);
-printf("the number of tracks is %d\n",header.tracks);
-printf("the division is %d\n",header.division);
 
 return 0;
 }

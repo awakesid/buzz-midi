@@ -18,9 +18,9 @@ typedef struct
 }midiheader;
 
 
-void getheaderinfo(midiheader head, FILE *fptr);
-
-
+void getheaderinfo(midiheader *head, FILE *fptr);
+uint16_t gettrackformat(FILE *fptr);
+uint16_t getNumberOftracks(FILE *fptr);
 
 
 

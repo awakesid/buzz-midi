@@ -20,6 +20,9 @@ int main(int argc, char*argv[]){
     return 1;
     }
 
+
+	char trackid[4];
+	uint32_t tracklenght;
 	midiheader header;
 	FILE *ptr=fopen(argv[1],"r");
 	
@@ -34,7 +37,7 @@ int main(int argc, char*argv[]){
 	//get timings right
 	//parse systemevents
 	//event type
-	
+
 
 
     

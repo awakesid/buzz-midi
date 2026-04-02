@@ -11,12 +11,12 @@
 #define NOTEOFF_EVENT 0x90
 #define INSTRU_EVENT 0xC0
 
-extern char trackid[4];
+extern char trackid[5];
 extern uint32_t tracklength;
 
 
 void GetTrackId(FILE *ptr);
-void GetTrackLenght(FILE *ptr);
+void GetTrackLength(FILE *ptr);
 
 int CheckTrackid();
 

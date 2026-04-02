@@ -5,21 +5,24 @@
 #include<string.h>
 
 
-char trackid[4];
+char trackid[5];
 uint32_t tracklength;
 
 
 void GetTrackId(FILE *ptr){
     strcpy(trackid,readbytes(4,ptr));
+    printf("\nll%s\n",trackid);
 }
 
-void GetTrackLenght(FILE *ptr){
+void GetTrackLength(FILE *ptr){
     tracklength=readLength(readbytes(4,ptr),4);
 }
 
 int CheckTrackid(){
-    if(strcmp(TRACK_ID,trackid) != 0){
+    if(strcmp(trackid,TRACK_ID) != 0){
+       
         return 0;
+        
     }
     return 1;
 }

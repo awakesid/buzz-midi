@@ -14,7 +14,7 @@ typedef struct
     uint16_t format;
     uint16_t tracks;
     uint16_t division;
-    char id[4];
+    char id[5];
 }midiheader;
 
 

@@ -34,16 +34,13 @@ int main(int argc, char*argv[]){
 
 //-------------------------------------------track-chunk-------------------------------------------------//
 	GetTrackId(ptr);
-	GetTrackLenght(ptr);
-	printf("Track Id, id:%s",trackid);
-	printf("track length: %d",tracklength);
-
-
+	GetTrackLength(ptr);
 
 	if(!CheckTrackid()){
-		printf("Invalid Track Id, id:%s",trackid);
+		printf("Invalid Track Id, id:%s\n",trackid);
 		return 1;
 	}
+
 
 	//get timings right
 	//parse systemevents

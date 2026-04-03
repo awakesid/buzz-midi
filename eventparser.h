@@ -18,6 +18,14 @@ extern int time;
 extern int tempo;
 extern int instrument;
 
+typedef struct
+{
+    int time_since_previous_event;
+    int note;
+    int velocity;
+    char event_type;
+}bar;
+
 
 void GetTrackId(FILE *ptr);
 void GetTrackLength(FILE *ptr);
@@ -26,6 +34,9 @@ int CheckTrackid();
 void readDeltatime(FILE *ptr, int division);
 void handle_event(unsigned char ch, FILE *ptr);
 void meta_events(FILE *ptr);
+
+void build_current_bar(FILE *ptr);
+
 
 
 

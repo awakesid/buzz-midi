@@ -11,10 +11,11 @@ int time;
 int tempo=500000;
 int instrument;
 
+bar current_bar;
+bar previous_bar;
 
 void GetTrackId(FILE *ptr){
     strcpy(trackid,readbytes(4,ptr));
-    printf("\nll%s\n",trackid);
 }
 
 void GetTrackLength(FILE *ptr){
@@ -53,7 +54,13 @@ void meta_events(FILE *ptr){
 }
 
 
+void build_current_bar(FILE *ptr, unsigned char event){
+    current_bar.time_since_previous_event=time;
+    current_bar.event_type=event;
+    current_bar.note=getc(ptr);
+    current_bar.velocity=getc(ptr);
 
+}
 
 void handle_event(unsigned char ch,FILE *ptr){
     switch (ch)
@@ -67,9 +74,11 @@ void handle_event(unsigned char ch,FILE *ptr){
     case NOTEOFF_EVENT:
         
         
-        
         break;
     case NOTEON_EVENT:
+        build_current_bar(ptr,NOTEON_EVENT);
+
+        break;
 
     default:
     int length=getc(ptr);

@@ -138,13 +138,12 @@ void handle_event(unsigned char ch,FILE *ptr, FILE *f){
         
         break;
     case NOTEOFF_EVENT:
-    
         build_current_bar(ptr,NOTEOFF_EVENT);
         compare_bars(f);
         
         break;
     case NOTEON_EVENT:
-        printf("\ntime %f\n",time);
+        
         
         build_current_bar(ptr,NOTEON_EVENT);
         compare_bars(f);

@@ -27,7 +27,7 @@ typedef struct
     float time_since_previous_event;
     int note;
     int velocity;
-    char event_type;
+    unsigned char event_type;
 }bar;
 
 

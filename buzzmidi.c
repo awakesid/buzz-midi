@@ -48,6 +48,8 @@ int main(int argc, char*argv[]){
 			break;
 		}
 	}
+	free(ptr);
+	free(f);
 
 
 return 0;

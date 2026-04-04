@@ -5,6 +5,7 @@
 #include<string.h>
 #include<math.h>
 #include<stdbool.h>
+#include<byteswap.h>
 
 
 char trackid[5];
@@ -35,8 +36,8 @@ int CheckTrackid(){
 
 void readDeltatime(FILE *ptr,int division){
    
-    float tempo_in_sec=tempo/1000000;
-    float tick = tempo_in_sec/division;
+    float tempo_in_sec=(float)tempo/1000000.00;
+    float tick = tempo_in_sec/(float)division;
     uint64_t vlq=readVariableLengthQuantity(ptr);
     time=tick*vlq;
 }
@@ -51,10 +52,10 @@ void meta_events(FILE *ptr){
         int temp_tempo;
         length=getc(ptr);
         memcpy(&temp_tempo,readbytes(length,ptr),length);
-        tempo=temp_tempo;
+        tempo=bswap_32(temp_tempo) >> 8;
+
     }
     else if(type==BREAK_TYPE){
-        
         break_flag=true;
     }
     else{

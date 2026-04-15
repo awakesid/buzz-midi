@@ -248,6 +248,6 @@ void make_header(FILE *f1)
         temp = note;        
         note = note->next;  
         free(temp);         
-    printf("freed allocated memory\n");
     }
+    printf("freed allocated memory\n");
 }

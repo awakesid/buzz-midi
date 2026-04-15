@@ -9,7 +9,7 @@ void setup() {
  
 }
 
-void loop() {
+
 
 //test
 void loop()
@@ -21,11 +21,6 @@ void loop()
   buzzit(3000, 0);
 }
 
-
-
-
-  buzzit(3000, 0);
-}
 
 // put function definitions here:
 void buzzit(float dur, float analog) {

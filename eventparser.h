@@ -45,7 +45,7 @@ void build_current_bar(FILE *ptr,unsigned char);
 void compare_bars(FILE *f);
 void swap();
 
-
+void make_header(FILE *f1);
 
 
 

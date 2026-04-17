@@ -19,6 +19,49 @@ bool break_flag=false;
 bar current_bar;
 bar previous_bar;
 
+struct Node
+{
+    float notes;
+    float durations;
+    struct Node *next;
+};
+struct Node *note = NULL;
+
+struct Node *createNode(float duration, float Note)
+{
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
+
+    newNode->notes = Note;
+    newNode->durations = duration;
+    newNode->next = NULL;
+
+    return newNode;
+}
+
+void make_notes_list(struct Node **head, float duration, float Note)
+{
+    struct Node *newNode = createNode(duration, Note);
+
+    if (*head == NULL)
+    {
+        *head = newNode;
+        return;
+    }
+    struct Node *temp = *head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
 void GetTrackId(FILE *ptr){
     strcpy(trackid,readbytes(4,ptr));
 }
@@ -94,6 +137,7 @@ void compare_bars(FILE *f){
         accummulated_time=accummulated_time+time;// acc=acc+t
         float analog_value=440*pow(2.0,(previous_bar.note-69)/12.0);    //take previous note and convert
         fprintf(f,"buzzit( %f , %f );\n",1000*accummulated_time,analog_value);//take acc time in ms
+        make_notes_list(&note, 1000 * accummulated_time, analog_value);
         accummulated_time=0;   //acc=0
         swap();
     }
@@ -103,6 +147,7 @@ void compare_bars(FILE *f){
             accummulated_time=accummulated_time+time;//acc=acc+t
             float analog_value=440*pow(2.0,(previous_bar.note-69)/12.0);    //take previous note and convert
             fprintf(f,"buzzit( %f , %f );\n",1000*accummulated_time,analog_value);//take acc time in ms
+            make_notes_list(&note, 1000 * accummulated_time, analog_value);
             accummulated_time=0;//acc=0
             delay_flag=true; //active delay flag
             swap();
@@ -120,6 +165,7 @@ void compare_bars(FILE *f){
             
             accummulated_time=accummulated_time+time; //acc=acc+t
             fprintf(f,"buzzit( %f , 0 );\n",1000*accummulated_time); //set_delay acc time
+            make_notes_list(&note, 1000 * accummulated_time, 0);
             accummulated_time=0;//acc=04
             delay_flag=false;
             
@@ -156,4 +202,52 @@ void handle_event(unsigned char ch,FILE *ptr, FILE *f){
     skipBytes(ptr,length);
         break;
     }
+}
+void make_header(FILE *f1)
+{
+    int i = 0;
+    struct Node *temp = note;
+    if (!f1)
+        return;
+
+    fprintf(f1, "float notes[]={\n");
+    while (temp != NULL)
+    {
+        i++;
+        fprintf(f1, "%.2f", temp->notes);
+        if (temp->next != NULL)
+            fprintf(f1, ", ");
+        if (i > 15)
+        {
+            fprintf(f1, "\n");
+            i = 0;
+        }
+        temp = temp->next;
+    }
+    fprintf(f1, "};\n\n\n");
+
+    i=0;
+    temp = note;
+    fprintf(f1, "float durations[]={\n");
+    while (temp != NULL)
+    {
+        i++;
+        fprintf(f1, "%.2f", temp->durations);
+        if (temp->next != NULL)
+            fprintf(f1, ", ");
+        if (i > 15)
+        {
+            fprintf(f1, "\n");
+            i = 0;
+        }
+        temp = temp->next;
+    }
+    fprintf(f1, "};");
+    printf("\ndone making header\n");
+     while (note != NULL) {
+        temp = note;        
+        note = note->next;  
+        free(temp);         
+    }
+    printf("freed allocated memory\n");
 }

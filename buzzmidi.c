@@ -28,11 +28,14 @@ int main(int argc, char*argv[]){
 
 	// Build output path
 	char outpath[512];
+	char outpath1[512];
 	snprintf(outpath, sizeof(outpath), "converted/%s.txt", basename);
+	snprintf(outpath1, sizeof(outpath1), "header/%s.h", basename);
 
 
 	FILE *ptr=fopen(argv[1],"r");
 	FILE *f = fopen(outpath, "w");
+	FILE *f1 = fopen(outpath1,"w");
 
 	if(ptr==NULL){ //file check
         printf("Invalid File");
@@ -64,7 +67,7 @@ int main(int argc, char*argv[]){
 		}
 	}
 	
-
+make_header(f1);
 
 return 0;
 }

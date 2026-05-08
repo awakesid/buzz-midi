@@ -4,7 +4,12 @@
 #include<string.h>
 
 
-
+uint16_t getTrackformat(FILE *fp, uint8_t n) {
+	char *temp = readbytes(n, fptr);
+	uint16_t t = readDivision(temp);
+	free(temp);
+	return t;
+}
 
 uint16_t gettrackformat(FILE *fptr){
 	char *temp = readbytes(2,fptr);

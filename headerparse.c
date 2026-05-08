@@ -7,7 +7,10 @@
 
 
 uint16_t gettrackformat(FILE *fptr){
-    return readDivision(readbytes(2,fptr)); // it return the integer of two bytes
+	char *temp = readbytes(2,fptr);
+	uint16_t t = readDivision(temp);
+	free(temp);
+    return t; // it return the integer of two bytes
 }
 
 
